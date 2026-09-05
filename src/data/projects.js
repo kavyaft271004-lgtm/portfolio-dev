@@ -39,17 +39,18 @@ export const projects = [
     tools: ['Odoo ERP'],
   },
   {
-    title: 'Climate Resilience & Adaptive Strategies — Veerapuram, Chennai',
-    category: 'Sustainability',
-    type: 'Karma Yoga Committee Project Leader · GLIM Chennai',
+    title: 'BrandPulse AI Analyst — Cross-Channel Complaint Diagnosis',
+    category: 'Empirical Study',
+    type: 'Independent Empirical Study · GLIM Chennai',
     summary:
-      'Field-based sustainability initiative addressing climate vulnerability in Tamil Nadu villages through farmer engagement, SHG interaction, and community-driven micro-enterprise design.',
+      'This study proposes BrandPulse AI Analyst, an AI-driven system that reads reviews scattered across multiple sales channels, automatically clusters similar complaints without predefined categories, infers the likely root cause behind each cluster, and allows a brand manager to query the system in plain English (e.g., "why is Blinkit underperforming this month?").',
     highlights: [
-      'Conducted field visits identifying ~50% crop losses, rainfall/borewell dependence, and income leakage through intermediaries via farmer and SHG interactions.',
-      'Designed three climate-resilient micro-enterprise models — vermicompost production, village farming, and neem oil/bio-pesticide production — using locally available resources.',
-      'Organized a Climate Change Awareness Camp, distributing saplings and vegetable seeds to promote sustainable agricultural practices and strengthen climate-resilient livelihoods.',
+      'Unifies cross-channel review data — pulling scattered D2C complaints from multiple sales platforms into a single structured pipeline for analysis.',
+      'Applies embeddings-based clustering to automatically group similar complaints without relying on predefined categories, surfacing emerging complaint spikes as they form.',
+      'Infers the likely root cause behind each complaint cluster, turning unstructured review text into diagnosable, actionable signals.',
+      'Provides a natural-language query interface so brand managers can ask plain-English questions and get an instant, auto-diagnosed answer.',
     ],
-    tools: ['Field Research', 'Community Engagement'],
+    tools: ['Embeddings', 'Clustering', 'NLP', 'Python'],
   },
   {
     title: 'Cost Structure & Break-Even Analysis — Chennai Beverages Campus Café',
