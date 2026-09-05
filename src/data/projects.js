@@ -81,6 +81,9 @@ export const empiricalProjects = [
     ],
     tools: ['Embeddings', 'Clustering', 'NLP', 'Python'],
   },
+]
+
+export const karmaYogaProjects = [
   {
     title: 'Climate Resilience & Adaptive Strategies — Veerapuram, Chennai',
     category: 'Sustainability',
@@ -93,5 +96,9 @@ export const empiricalProjects = [
       'Organized a Climate Change Awareness Camp, distributing saplings and vegetable seeds to promote sustainable agricultural practices and strengthen climate-resilient livelihoods.',
     ],
     tools: ['Field Research', 'Community Engagement'],
+    images: [
+      'images/karma-yoga/veerapuram-1.jpg',
+      'images/karma-yoga/veerapuram-2.jpg',
+    ],
   },
 ]
