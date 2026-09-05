@@ -52,7 +52,7 @@ function About() {
             <video
               controls
               preload="metadata"
-              poster={`${import.meta.env.BASE_URL}images/kavya-portrait.png`}
+              poster={`${import.meta.env.BASE_URL}images/intro-video-poster.png`}
               className="w-full aspect-video bg-black"
             >
               <source src={`${import.meta.env.BASE_URL}video/intro.mp4`} type="video/mp4" />
