@@ -4,6 +4,33 @@ import UnderwaterBackground from '../background/UnderwaterBackground'
 import GoldfishSVG from '../ui/GoldfishSVG'
 import Button from '../ui/Button'
 
+function Goldfish({ className, flip, entranceDelay, bobDelay, bobDuration = 6 }) {
+  return (
+    <motion.div
+      className={`absolute cursor-grab active:cursor-grabbing touch-none ${className}`}
+      initial={{ opacity: 0, x: flip ? -60 : 60 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1, ease: 'easeOut', delay: entranceDelay }}
+      drag
+      dragElastic={0.5}
+      dragConstraints={{ left: -70, right: 70, top: -50, bottom: 50 }}
+      dragTransition={{ bounceStiffness: 300, bounceDamping: 14 }}
+      dragSnapToOrigin
+      whileHover={{ scale: 1.12 }}
+      whileTap={{ scale: 0.92, rotate: flip ? -10 : 10 }}
+    >
+      <motion.div
+        animate={{ y: [0, -12, 0], rotate: flip ? [0, 3, 0] : [0, -3, 0] }}
+        transition={{ duration: bobDuration, repeat: Infinity, ease: 'easeInOut', delay: bobDelay }}
+      >
+        <GoldfishSVG
+          className={`w-full drop-shadow-[0_0_30px_rgba(212,175,55,0.35)] ${flip ? '-scale-x-100' : ''}`}
+        />
+      </motion.div>
+    </motion.div>
+  )
+}
+
 function Hero() {
   return (
     <section
@@ -12,15 +39,19 @@ function Hero() {
     >
       <UnderwaterBackground />
 
-      <motion.div
-        className="absolute w-40 sm:w-56 top-[14%] right-[6%] sm:right-[12%]"
-        style={{ animation: 'swim-idle 6s ease-in-out infinite' }}
-        initial={{ opacity: 0, x: 60 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, ease: 'easeOut', delay: 0.4 }}
-      >
-        <GoldfishSVG className="w-full drop-shadow-[0_0_30px_rgba(212,175,55,0.35)]" />
-      </motion.div>
+      <Goldfish
+        className="w-40 sm:w-56 top-[14%] right-[6%] sm:right-[12%]"
+        entranceDelay={0.4}
+        bobDelay={0}
+      />
+
+      <Goldfish
+        className="w-24 sm:w-36 bottom-[16%] left-[6%] sm:left-[10%]"
+        flip
+        entranceDelay={0.6}
+        bobDelay={1.2}
+        bobDuration={5}
+      />
 
       <div className="relative z-10 max-w-2xl">
         <motion.p
