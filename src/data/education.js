@@ -16,14 +16,12 @@ export const education = [
 
 export const certifications = [
   'Process Innovation (EY Credly, 2022)',
-  'Product Management with AI (Finlatics, Pursuing)',
+  'McKinsey Forward Program (Pursuing)',
 ]
 
 export const achievements = [
-  'Spot Award, EY GDS — 2021 and 2022, for exceptional client delivery & SLA performance consistency.',
-  'Head of Citizen Consumer Club, Ethiraj College for Women (2019–2021).',
-  'Leading Project on Climate Resilience, Karma Yoga Committee, GLIM Chennai (2026–27).',
-  'Member of Consulting Club, GLIM Chennai (2026–27).',
+  'Spot Award (EY GDS, 2021 and 2022)',
+  'Cross Fire Winner (Consulting Competition, GLIM 2026)',
 ]
 
 export const volunteer = [

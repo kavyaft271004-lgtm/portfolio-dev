@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
 import { experience } from '../../data/experience'
-import { education, certifications } from '../../data/education'
+import { education, certifications, achievements } from '../../data/education'
 import Container from '../ui/Container'
 import SectionHeading from '../ui/SectionHeading'
 import GlassCard from '../ui/GlassCard'
@@ -37,7 +37,7 @@ function Experience() {
           ))}
         </div>
 
-        <div className="mt-16 grid sm:grid-cols-2 gap-6">
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <GlassCard>
             <h3 className="text-[var(--gold-light)] font-medium mb-4">Education</h3>
             <ul className="space-y-3">
@@ -58,6 +58,18 @@ function Experience() {
                 <li key={cert} className="text-sm text-[var(--muted)] flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold)] shrink-0 mt-[7px]" />
                   {cert}
+                </li>
+              ))}
+            </ul>
+          </GlassCard>
+
+          <GlassCard delay={0.2}>
+            <h3 className="text-[var(--gold-light)] font-medium mb-4">Awards &amp; Achievements</h3>
+            <ul className="space-y-2">
+              {achievements.map((item) => (
+                <li key={item} className="text-sm text-[var(--muted)] flex items-start gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold)] shrink-0 mt-[7px]" />
+                  {item}
                 </li>
               ))}
             </ul>
