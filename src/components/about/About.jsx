@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { profile } from '../../data/profile'
 import Container from '../ui/Container'
 import SectionHeading from '../ui/SectionHeading'
+import GlassCard from '../ui/GlassCard'
 
 function About() {
   return (
@@ -44,6 +45,21 @@ function About() {
             </div>
           </div>
         </div>
+
+        <GlassCard className="mt-12" delay={0.15}>
+          <SectionHeading eyebrow="Say Hello" title="Introduction Video" />
+          <div className="mt-6 rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20">
+            <video
+              controls
+              preload="metadata"
+              poster={`${import.meta.env.BASE_URL}images/kavya-portrait.png`}
+              className="w-full aspect-video bg-black"
+            >
+              <source src={`${import.meta.env.BASE_URL}video/intro.mp4`} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </GlassCard>
       </Container>
     </section>
   )
