@@ -62,7 +62,7 @@ function Projects() {
           <SectionHeading eyebrow="Leadership Experiential Action Program" title="Karma Yoga Project" />
           <div className="mt-12 space-y-6">
             {karmaYogaProjects.map((project, i) => (
-              <div key={project.title} className="grid md:grid-cols-2 gap-6 items-start">
+              <div key={project.title} className="grid md:grid-cols-2 gap-6 items-stretch">
                 <ProjectCard project={project} delay={i * 0.06} />
                 {project.sidePage && (
                   <motion.div
@@ -70,12 +70,12 @@ function Projects() {
                     whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                     viewport={{ once: true, margin: '-60px' }}
                     transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.06 + 0.1 }}
-                    className="rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20"
+                    className="rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 h-full min-h-[320px]"
                   >
                     <img
                       src={`${import.meta.env.BASE_URL}${project.sidePage}`}
                       alt={`${project.title} — newsletter feature`}
-                      className="w-full h-auto"
+                      className="w-full h-full object-contain object-top bg-white"
                       loading="lazy"
                     />
                   </motion.div>
