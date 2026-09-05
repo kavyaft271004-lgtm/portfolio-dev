@@ -1,3 +1,4 @@
+import { motion } from 'motion/react'
 import { projects, empiricalProjects, karmaYogaProjects } from '../../data/projects'
 import Container from '../ui/Container'
 import SectionHeading from '../ui/SectionHeading'
@@ -12,24 +13,6 @@ function ProjectCard({ project, delay }) {
       <h3 className="text-xl mt-2">{project.title}</h3>
       <p className="text-sm text-[var(--muted)] mt-1">{project.type}</p>
       <p className="text-sm text-[var(--muted)] mt-4">{project.summary}</p>
-
-      {project.images && (
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          {project.images.map((src) => (
-            <div
-              key={src}
-              className="aspect-video rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20"
-            >
-              <img
-                src={`${import.meta.env.BASE_URL}${src}`}
-                alt={project.title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          ))}
-        </div>
-      )}
 
       <ul className="mt-4 space-y-2 flex-1">
         {project.highlights.map((h) => (
@@ -77,9 +60,27 @@ function Projects() {
 
         <div className="mt-20">
           <SectionHeading eyebrow="Leadership Experiential Action Program" title="Karma Yoga Project" />
-          <div className="mt-12 grid sm:grid-cols-2 gap-6">
+          <div className="mt-12 space-y-6">
             {karmaYogaProjects.map((project, i) => (
-              <ProjectCard key={project.title} project={project} delay={i * 0.06} />
+              <div key={project.title} className="grid md:grid-cols-2 gap-6 items-start">
+                <ProjectCard project={project} delay={i * 0.06} />
+                {project.sidePage && (
+                  <motion.div
+                    initial={{ opacity: 0, filter: 'blur(8px)', y: 16 }}
+                    whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.06 + 0.1 }}
+                    className="rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20"
+                  >
+                    <img
+                      src={`${import.meta.env.BASE_URL}${project.sidePage}`}
+                      alt={`${project.title} — newsletter feature`}
+                      className="w-full h-auto"
+                      loading="lazy"
+                    />
+                  </motion.div>
+                )}
+              </div>
             ))}
           </div>
         </div>
