@@ -48,7 +48,7 @@ function About() {
 
         <GlassCard className="mt-12" delay={0.15}>
           <SectionHeading eyebrow="Say Hello" title="Introduction Video" />
-          <div className="mt-6 rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20">
+          <div className="mt-6 max-w-lg mx-auto rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20">
             <video
               controls
               preload="metadata"
