@@ -83,7 +83,7 @@ export const karmaYogaProjects = [
       'Organized a Climate Change Awareness Camp, distributing saplings and vegetable seeds to promote sustainable agricultural practices and strengthen climate-resilient livelihoods.',
     ],
     tools: ['Field Research', 'Community Engagement'],
-    sidePage: 'images/karma-yoga/newsletter-page-6.jpg',
+    sideImages: ['images/karma-yoga/newsletter-page-6.jpg'],
   },
 ]
 
@@ -100,7 +100,8 @@ export const competitionsProjects = [
       'Zero prep: cases landed live on the night of the competition.',
     ],
     tools: ['Case Cracking', 'Verbal Strategy', 'Live Problem-Solving'],
-    sidePage: 'images/competitions/crossfire.jpg',
+    sideImages: ['images/competitions/crossfire.jpg'],
+    sideFit: 'cover',
   },
   {
     title: 'Shark Tank — Soft Touch (Product Concept)',
@@ -116,5 +117,7 @@ export const competitionsProjects = [
     ],
     tools: ['Product Strategy', 'Market Positioning', 'Pitching'],
     link: 'https://6a8ff9bc1882f9da6735be5f--glittering-torrone-54cfd5.netlify.app/',
+    sideImages: ['images/competitions/shark-tank-banner.jpg', 'images/competitions/shark-tank-video.jpg'],
+    sideFit: 'cover',
   },
 ]

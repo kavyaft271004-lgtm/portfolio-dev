@@ -54,9 +54,12 @@ function ProjectCard({ project, delay }) {
 }
 
 function ProjectRow({ project, delay }) {
-  if (!project.sidePage) {
+  const images = project.sideImages ?? []
+  if (images.length === 0) {
     return <ProjectCard project={project} delay={delay} />
   }
+
+  const fitClass = project.sideFit === 'cover' ? 'object-cover' : 'object-contain bg-white'
 
   return (
     <div className="grid md:grid-cols-2 gap-6 items-start">
@@ -66,14 +69,19 @@ function ProjectRow({ project, delay }) {
         whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.6, ease: 'easeOut', delay: delay + 0.1 }}
-        className="rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 md:h-[420px]"
+        className={`rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 md:h-[420px] ${
+          images.length > 1 ? 'grid grid-cols-2 gap-1.5' : ''
+        }`}
       >
-        <img
-          src={`${import.meta.env.BASE_URL}${project.sidePage}`}
-          alt={`${project.title} — photo`}
-          className="w-full h-full object-contain bg-white"
-          loading="lazy"
-        />
+        {images.map((src) => (
+          <img
+            key={src}
+            src={`${import.meta.env.BASE_URL}${src}`}
+            alt={`${project.title} — photo`}
+            className={`w-full h-full ${fitClass}`}
+            loading="lazy"
+          />
+        ))}
       </motion.div>
     </div>
   )
