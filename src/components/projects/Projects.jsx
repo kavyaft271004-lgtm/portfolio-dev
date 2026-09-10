@@ -34,29 +34,33 @@ function ProjectCard({ project, delay }) {
           </span>
         ))}
       </div>
-
-      {project.link && (
-        <div className="mt-4">
-          <Button
-            as="a"
-            href={project.link}
-            target="_blank"
-            rel="noreferrer"
-            variant="outline"
-            className="px-5 py-2 text-sm"
-          >
-            View Prototype
-          </Button>
-        </div>
-      )}
     </GlassCard>
   )
 }
 
 function ProjectRow({ project, delay }) {
   const images = project.sideImages ?? []
+
+  const linkButton = project.link && (
+    <Button
+      as="a"
+      href={project.link}
+      target="_blank"
+      rel="noreferrer"
+      variant="primary"
+      className="px-6 py-3 w-full sm:w-auto"
+    >
+      View Prototype →
+    </Button>
+  )
+
   if (images.length === 0) {
-    return <ProjectCard project={project} delay={delay} />
+    return (
+      <div className="space-y-4">
+        <ProjectCard project={project} delay={delay} />
+        {linkButton}
+      </div>
+    )
   }
 
   const fitClass = project.sideFit === 'cover' ? 'object-cover' : 'object-contain bg-white'
@@ -64,25 +68,28 @@ function ProjectRow({ project, delay }) {
   return (
     <div className="grid md:grid-cols-2 gap-6 items-start">
       <ProjectCard project={project} delay={delay} />
-      <motion.div
-        initial={{ opacity: 0, filter: 'blur(8px)', y: 16 }}
-        whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6, ease: 'easeOut', delay: delay + 0.1 }}
-        className={`rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 md:h-[420px] ${
-          images.length > 1 ? 'grid grid-cols-2 gap-1.5' : ''
-        }`}
-      >
-        {images.map((src) => (
-          <img
-            key={src}
-            src={`${import.meta.env.BASE_URL}${src}`}
-            alt={`${project.title} — photo`}
-            className={`w-full h-full ${fitClass}`}
-            loading="lazy"
-          />
-        ))}
-      </motion.div>
+      <div>
+        <motion.div
+          initial={{ opacity: 0, filter: 'blur(8px)', y: 16 }}
+          whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: delay + 0.1 }}
+          className={`rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 md:h-[420px] ${
+            images.length > 1 ? 'grid grid-cols-2 gap-1.5' : ''
+          }`}
+        >
+          {images.map((src) => (
+            <img
+              key={src}
+              src={`${import.meta.env.BASE_URL}${src}`}
+              alt={`${project.title} — photo`}
+              className={`w-full h-full ${fitClass}`}
+              loading="lazy"
+            />
+          ))}
+        </motion.div>
+        {linkButton && <div className="mt-4 flex justify-center md:justify-start">{linkButton}</div>}
+      </div>
     </div>
   )
 }

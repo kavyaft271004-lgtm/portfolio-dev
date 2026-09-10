@@ -31,9 +31,13 @@ function InterestCard({ interest, index }) {
           <h3 className="text-[var(--gold-light)] font-medium flex items-center gap-1.5">
             {interest.title}
             {hasImages && (
-              <span className="text-[10px] text-[var(--muted)] normal-case tracking-normal">
-                (click to view)
-              </span>
+              <motion.span
+                animate={{ opacity: [1, 0.35, 1] }}
+                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+                className="text-[10px] font-semibold text-[var(--background)] bg-[var(--gold)] normal-case tracking-normal px-2 py-0.5 rounded-full"
+              >
+                Click to view
+              </motion.span>
             )}
           </h3>
           <p className="text-sm text-[var(--muted)] mt-1">{interest.detail}</p>
