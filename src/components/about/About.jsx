@@ -1,8 +1,68 @@
+import { useState } from 'react'
 import { motion } from 'motion/react'
 import { profile } from '../../data/profile'
 import Container from '../ui/Container'
 import SectionHeading from '../ui/SectionHeading'
 import GlassCard from '../ui/GlassCard'
+
+function InterestCard({ interest, index }) {
+  const [flipped, setFlipped] = useState(false)
+  const hasImages = Boolean(interest.images?.length)
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.08 }}
+      className={`h-36 ${hasImages ? 'cursor-pointer select-none' : ''}`}
+      style={{ perspective: 800 }}
+      onClick={hasImages ? () => setFlipped((f) => !f) : undefined}
+      whileHover={hasImages ? { scale: 1.02 } : undefined}
+      whileTap={hasImages ? { scale: 0.98 } : undefined}
+    >
+      <motion.div
+        className="relative w-full h-full"
+        style={{ transformStyle: 'preserve-3d' }}
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+      >
+        <div className="absolute inset-0" style={{ backfaceVisibility: 'hidden' }}>
+          <h3 className="text-[var(--gold-light)] font-medium flex items-center gap-1.5">
+            {interest.title}
+            {hasImages && (
+              <span className="text-[10px] text-[var(--muted)] normal-case tracking-normal">
+                (click to view)
+              </span>
+            )}
+          </h3>
+          <p className="text-sm text-[var(--muted)] mt-1">{interest.detail}</p>
+        </div>
+
+        {hasImages && (
+          <div
+            className="absolute inset-0 grid grid-cols-2 gap-1.5"
+            style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+          >
+            {interest.images.map((src) => (
+              <div
+                key={src}
+                className="rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20"
+              >
+                <img
+                  src={`${import.meta.env.BASE_URL}${src}`}
+                  alt={interest.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </motion.div>
+    </motion.div>
+  )
+}
 
 function About() {
   return (
@@ -31,16 +91,7 @@ function About() {
 
             <div className="mt-8 grid sm:grid-cols-3 gap-6">
               {profile.interests.map((interest, i) => (
-                <motion.div
-                  key={interest.title}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.5, ease: 'easeOut', delay: i * 0.08 }}
-                >
-                  <h3 className="text-[var(--gold-light)] font-medium">{interest.title}</h3>
-                  <p className="text-sm text-[var(--muted)] mt-1">{interest.detail}</p>
-                </motion.div>
+                <InterestCard key={interest.title} interest={interest} index={i} />
               ))}
             </div>
           </div>

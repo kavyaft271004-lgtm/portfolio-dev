@@ -14,6 +14,7 @@ export const profile = {
     {
       title: 'Travel',
       detail: 'Enjoys solo, family, and group travel; independently plans itineraries for others.',
+      images: ['images/travel/sunset-beach.jpg', 'images/travel/cliff-view.jpg'],
     },
     {
       title: 'Badminton',
