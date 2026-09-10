@@ -39,19 +39,6 @@ export const projects = [
     tools: ['Odoo ERP'],
   },
   {
-    title: 'Cost Structure & Break-Even Analysis — Chennai Beverages Campus Café',
-    category: 'Economics',
-    type: 'Field-Based Microeconomics Study · GLIM Chennai',
-    summary:
-      "Field-based microeconomics study analyzing the fixed-variable cost structure of a campus café, benchmarked against an AI-generated theoretical model to reconcile assumptions with ground-reality data.",
-    highlights: [
-      'Conducted primary field research and owner interviews to capture actual fixed, variable, and semi-variable costs (rent, staff, raw materials, utilities) across daily/monthly frequencies.',
-      'Computed Total Fixed Cost, Total Variable Cost, and per-unit economics across monthly units to build Average and Marginal Cost curves.',
-      'Reconciled AI-projected cost estimates against actual field data, identifying key variances in labor costs, real estate assumptions, and economies of scale.',
-    ],
-    tools: ['MS Excel'],
-  },
-  {
     title: 'Macroeconomic Analysis — Yes Bank & RBI Policy Impact',
     category: 'Macroeconomics',
     type: 'Individual Assignment · GLIM Chennai',
@@ -97,5 +84,37 @@ export const karmaYogaProjects = [
     ],
     tools: ['Field Research', 'Community Engagement'],
     sidePage: 'images/karma-yoga/newsletter-page-6.jpg',
+  },
+]
+
+export const competitionsProjects = [
+  {
+    title: 'Cross Fire — Consulting Case Competition (Winner)',
+    category: 'Cross Fire',
+    type: 'Consulting Committee · GLIM Chennai',
+    summary:
+      'A high-pressure, old-school consulting case competition testing pure articulation and on-the-spot strategic thinking — no devices, no slides, no prep time.',
+    highlights: [
+      'Old-school style: no devices allowed — no phones, laptops, or calculators.',
+      'Pure articulation: verbal presentations only, with no slides.',
+      'Zero prep: cases landed live on the night of the competition.',
+    ],
+    tools: ['Case Cracking', 'Verbal Strategy', 'Live Problem-Solving'],
+    sidePage: 'images/competitions/crossfire.jpg',
+  },
+  {
+    title: 'Shark Tank — Soft Touch (Product Concept)',
+    category: 'Shark Tank',
+    type: 'Shark Tank · GLIM Chennai',
+    summary:
+      'Soft Touch is an assistive bedside device concept designed to restore independence for bed-bound patients — senior citizens, accident/fracture recoverers, and individuals with disabilities.',
+    highlights: [
+      "Problem identified: everyday bedside tasks — like pulling up a blanket — create real dependency for bed-bound patients, who either stay uncomfortable or wait for help.",
+      'Scope decision: deliberately expanded beyond a single-task device to a bounded set of bedside tasks — blanket handling, pillow repositioning, object retrieval, and an emergency call-button function — enough to meaningfully restore independence, without overreaching into a fully generalized robotic arm that would be unrealistic to design or price.',
+      'Core positioning: anchored the pitch on patient dignity and independence rather than caregiver efficiency — nurse-time-saved is a real benefit, but treated as a supporting point, not the headline.',
+      "Target market: targeted the premium and institutional segment — hospitals and care facilities — over mass consumer, reasoning that the average Indian middle-class household isn't yet ready to adopt this category of assistive tech, on both cost and trust grounds.",
+    ],
+    tools: ['Product Strategy', 'Market Positioning', 'Pitching'],
+    link: 'https://6a8ff9bc1882f9da6735be5f--glittering-torrone-54cfd5.netlify.app/',
   },
 ]

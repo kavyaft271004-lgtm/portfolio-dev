@@ -1,8 +1,9 @@
 import { motion } from 'motion/react'
-import { projects, empiricalProjects, karmaYogaProjects } from '../../data/projects'
+import { projects, empiricalProjects, karmaYogaProjects, competitionsProjects } from '../../data/projects'
 import Container from '../ui/Container'
 import SectionHeading from '../ui/SectionHeading'
 import GlassCard from '../ui/GlassCard'
+import Button from '../ui/Button'
 
 function ProjectCard({ project, delay }) {
   return (
@@ -33,7 +34,48 @@ function ProjectCard({ project, delay }) {
           </span>
         ))}
       </div>
+
+      {project.link && (
+        <div className="mt-4">
+          <Button
+            as="a"
+            href={project.link}
+            target="_blank"
+            rel="noreferrer"
+            variant="outline"
+            className="px-5 py-2 text-sm"
+          >
+            View Prototype
+          </Button>
+        </div>
+      )}
     </GlassCard>
+  )
+}
+
+function ProjectRow({ project, delay }) {
+  if (!project.sidePage) {
+    return <ProjectCard project={project} delay={delay} />
+  }
+
+  return (
+    <div className="grid md:grid-cols-2 gap-6 items-start">
+      <ProjectCard project={project} delay={delay} />
+      <motion.div
+        initial={{ opacity: 0, filter: 'blur(8px)', y: 16 }}
+        whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.6, ease: 'easeOut', delay: delay + 0.1 }}
+        className="rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 md:h-[420px]"
+      >
+        <img
+          src={`${import.meta.env.BASE_URL}${project.sidePage}`}
+          alt={`${project.title} — photo`}
+          className="w-full h-full object-contain bg-white"
+          loading="lazy"
+        />
+      </motion.div>
+    </div>
   )
 }
 
@@ -62,25 +104,16 @@ function Projects() {
           <SectionHeading eyebrow="Leadership Experiential Action Program" title="Karma Yoga Project" />
           <div className="mt-12 space-y-6">
             {karmaYogaProjects.map((project, i) => (
-              <div key={project.title} className="grid md:grid-cols-2 gap-6 items-start">
-                <ProjectCard project={project} delay={i * 0.06} />
-                {project.sidePage && (
-                  <motion.div
-                    initial={{ opacity: 0, filter: 'blur(8px)', y: 16 }}
-                    whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.06 + 0.1 }}
-                    className="rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 md:h-[420px]"
-                  >
-                    <img
-                      src={`${import.meta.env.BASE_URL}${project.sidePage}`}
-                      alt={`${project.title} — newsletter feature`}
-                      className="w-full h-full object-contain bg-white"
-                      loading="lazy"
-                    />
-                  </motion.div>
-                )}
-              </div>
+              <ProjectRow key={project.title} project={project} delay={i * 0.06} />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-20">
+          <SectionHeading eyebrow="Beyond the Classroom" title="Competitions at GLIM" />
+          <div className="mt-12 space-y-6">
+            {competitionsProjects.map((project, i) => (
+              <ProjectRow key={project.title} project={project} delay={i * 0.06} />
             ))}
           </div>
         </div>
