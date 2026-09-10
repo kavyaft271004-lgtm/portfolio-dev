@@ -23,6 +23,7 @@ export const profile = {
     {
       title: 'Community & Education',
       detail: 'Strong personal interest in educational outreach and social impact.',
+      images: ['images/community/field-outreach.jpg', 'images/community/pond-cleanup.jpg'],
     },
   ],
 }
