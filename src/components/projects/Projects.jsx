@@ -64,8 +64,8 @@ function ProjectRow({ project, delay }) {
   }
 
   const isCover = project.sideFit === 'cover'
-  const fitClass = isCover ? 'object-cover' : 'object-contain bg-white'
-  const heightClass = isCover ? 'md:h-[320px]' : 'md:h-[420px]'
+  const fitClass = project.sideAspect ? 'object-cover' : isCover ? 'object-cover' : 'object-contain bg-white'
+  const heightClass = project.sideAspect ? '' : isCover ? 'md:h-[320px]' : 'md:h-[420px]'
 
   return (
     <div className="grid md:grid-cols-2 gap-6 items-start">
@@ -79,6 +79,7 @@ function ProjectRow({ project, delay }) {
           className={`rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 w-full ${heightClass} ${
             images.length > 1 ? 'grid grid-cols-2 gap-1.5' : ''
           }`}
+          style={project.sideAspect ? { aspectRatio: project.sideAspect } : undefined}
         >
           {images.map((src) => (
             <img
@@ -128,7 +129,7 @@ function Projects() {
 
         <div id="competitions" className="mt-20 scroll-mt-24">
           <SectionHeading eyebrow="Beyond the Classroom" title="Competitions at GLIM" />
-          <div className="mt-12 space-y-6">
+          <div className="mt-12 space-y-16">
             {competitionsProjects.map((project, i) => (
               <ProjectRow key={project.title} project={project} delay={i * 0.06} />
             ))}

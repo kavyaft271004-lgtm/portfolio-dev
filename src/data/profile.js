@@ -27,6 +27,7 @@ export const profile = {
       detail:
         'Strong personal interest in educational outreach and social impact. Drawn to mentoring and teaching moments, even in informal settings.',
       images: ['images/community/field-outreach.jpg', 'images/community/pond-cleanup.jpg'],
+      imageLayout: 'stack',
     },
   ],
 }
