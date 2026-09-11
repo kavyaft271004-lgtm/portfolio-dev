@@ -1,4 +1,6 @@
-import { motion } from 'motion/react'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { AnimatePresence, motion } from 'motion/react'
 import { projects, empiricalProjects, karmaYogaProjects, competitionsProjects } from '../../data/projects'
 import Container from '../ui/Container'
 import SectionHeading from '../ui/SectionHeading'
@@ -38,55 +40,74 @@ function ProjectCard({ project, delay }) {
   )
 }
 
-const POLAROID_LAYOUTS = [
-  [{ rotate: -8, x: 0, y: 0 }],
-  [
-    { rotate: -10, x: -8, y: 6 },
-    { rotate: 9, x: 20, y: -4 },
-  ],
-]
+function Lightbox({ title, images, onClose }) {
+  useEffect(() => {
+    const onKeyDown = (e) => e.key === 'Escape' && onClose()
+    document.addEventListener('keydown', onKeyDown)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = ''
+    }
+  }, [onClose])
 
-function Polaroid({ src, alt, rotate, x, y, delay }) {
-  return (
-    <motion.div
-      className="absolute w-24 sm:w-32 bg-white p-1.5 pb-4 rounded-sm shadow-2xl cursor-grab active:cursor-grabbing"
-      style={{ top: y, right: x }}
-      initial={{ opacity: 0, rotate: rotate * 2.5, scale: 0.7 }}
-      whileInView={{ opacity: 1, rotate, scale: 1 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, ease: 'easeOut', delay }}
-      whileHover={{ rotate: 0, scale: 1.1, zIndex: 30 }}
-      whileTap={{ scale: 1.05 }}
-      drag
-      dragElastic={0.5}
-      dragConstraints={{ left: -50, right: 50, top: -40, bottom: 40 }}
-      dragSnapToOrigin
-    >
-      <img src={src} alt={alt} className="w-full aspect-square object-cover" loading="lazy" />
-    </motion.div>
+  return createPortal(
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm p-6"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.92 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="relative max-w-4xl w-full"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            className="absolute -top-10 right-0 sm:-right-2 text-[var(--text)] text-2xl leading-none hover:text-[var(--gold)] transition-colors"
+          >
+            ✕
+          </button>
+          <div className={`grid gap-3 ${images.length > 1 ? 'sm:grid-cols-2' : 'grid-cols-1'}`}>
+            {images.map((src) => (
+              <img
+                key={src}
+                src={src}
+                alt={title}
+                className="w-full max-h-[75vh] object-contain rounded-[var(--radius)] border border-[var(--gold)]/20 bg-black"
+              />
+            ))}
+          </div>
+          <p className="mt-3 text-center text-sm text-[var(--muted)]">{title}</p>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>,
+    document.body,
   )
 }
 
-function PolaroidProjectCard({ project, delay }) {
-  const images = project.sideImages ?? []
-  const layout = POLAROID_LAYOUTS[images.length - 1] ?? POLAROID_LAYOUTS[0]
+function LightboxProjectCard({ project, delay }) {
+  const [open, setOpen] = useState(false)
+  const images = (project.sideImages ?? []).map((src) => `${import.meta.env.BASE_URL}${src}`)
 
   return (
     <div className="relative">
+      <button
+        onClick={() => setOpen(true)}
+        className="absolute top-4 right-4 z-10 flex items-center gap-1.5 text-xs font-semibold text-[var(--background)] bg-[var(--gold)] px-3 py-1.5 rounded-full shadow-lg hover:scale-105 transition-transform"
+      >
+        📷 View Photos
+      </button>
       <ProjectCard project={project} delay={delay} />
-      <div className="absolute -top-5 -right-3 sm:-top-7 sm:-right-6" style={{ zIndex: 10 }}>
-        {images.map((src, i) => (
-          <Polaroid
-            key={src}
-            src={`${import.meta.env.BASE_URL}${src}`}
-            alt={`${project.title} — photo`}
-            rotate={layout[i]?.rotate ?? 0}
-            x={layout[i]?.x ?? 0}
-            y={layout[i]?.y ?? 0}
-            delay={delay + i * 0.12}
-          />
-        ))}
-      </div>
+      {open && <Lightbox title={project.title} images={images} onClose={() => setOpen(false)} />}
     </div>
   )
 }
@@ -110,7 +131,7 @@ function ProjectRow({ project, delay }) {
   if (project.flipReveal && images.length > 0) {
     return (
       <div className="space-y-4">
-        <PolaroidProjectCard project={project} delay={delay} />
+        <LightboxProjectCard project={project} delay={delay} />
         {linkButton && <div className="flex justify-center">{linkButton}</div>}
       </div>
     )
