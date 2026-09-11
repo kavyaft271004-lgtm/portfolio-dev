@@ -13,16 +13,19 @@ export const profile = {
   interests: [
     {
       title: 'Travel',
-      detail: 'Enjoys solo, family, and group travel; independently plans itineraries for others.',
+      detail:
+        'Enjoys solo, family, and group travel; independently plans itineraries for others. Loves maintaining a running wishlist of destinations; enjoys the planning process as much as the trip itself.',
       images: ['images/travel/sunset-beach.jpg', 'images/travel/cliff-view.jpg'],
     },
     {
       title: 'Badminton',
-      detail: 'Active player since school; continues as a recreational interest.',
+      detail:
+        'Active player since school; continues as a recreational interest. Plays casually on weekends; values it as a regular source of physical activity.',
     },
     {
       title: 'Community & Education',
-      detail: 'Strong personal interest in educational outreach and social impact.',
+      detail:
+        'Strong personal interest in educational outreach and social impact. Drawn to mentoring and teaching moments, even in informal settings.',
       images: ['images/community/field-outreach.jpg', 'images/community/pond-cleanup.jpg'],
     },
   ],

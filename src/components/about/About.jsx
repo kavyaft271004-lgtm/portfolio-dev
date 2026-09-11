@@ -15,7 +15,7 @@ function InterestCard({ interest, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.08 }}
-      className={`h-36 ${hasImages ? 'cursor-pointer select-none' : ''}`}
+      className={`h-64 ${hasImages ? 'cursor-pointer select-none' : ''}`}
       style={{ perspective: 800 }}
       onClick={hasImages ? () => setFlipped((f) => !f) : undefined}
       whileHover={hasImages ? { scale: 1.02 } : undefined}
