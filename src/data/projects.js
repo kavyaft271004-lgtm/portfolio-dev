@@ -102,6 +102,7 @@ export const competitionsProjects = [
     tools: ['Case Cracking', 'Verbal Strategy', 'Live Problem-Solving'],
     sideImages: ['images/competitions/crossfire.jpg'],
     sideFit: 'cover',
+    flipReveal: true,
   },
   {
     title: 'Shark Tank — Soft Touch (Product Concept)',
@@ -119,5 +120,6 @@ export const competitionsProjects = [
     link: 'https://6a8ff9bc1882f9da6735be5f--glittering-torrone-54cfd5.netlify.app/',
     sideImages: ['images/competitions/shark-tank-banner.jpg', 'images/competitions/shark-tank-video.jpg'],
     sideFit: 'cover',
+    flipReveal: true,
   },
 ]

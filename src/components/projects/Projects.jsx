@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'motion/react'
 import { projects, empiricalProjects, karmaYogaProjects, competitionsProjects } from '../../data/projects'
 import Container from '../ui/Container'
@@ -38,6 +39,57 @@ function ProjectCard({ project, delay }) {
   )
 }
 
+function FlippableProjectCard({ project, delay }) {
+  const [flipped, setFlipped] = useState(false)
+  const images = project.sideImages ?? []
+  const fitClass = project.sideFit === 'cover' ? 'object-cover' : 'object-contain bg-white'
+
+  return (
+    <div
+      className="relative cursor-pointer select-none"
+      style={{ perspective: 1200 }}
+      onClick={() => setFlipped((f) => !f)}
+    >
+      <motion.div
+        className="relative w-full"
+        style={{ transformStyle: 'preserve-3d' }}
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+      >
+        <div className="relative" style={{ backfaceVisibility: 'hidden' }}>
+          <motion.span
+            animate={{ opacity: [1, 0.35, 1] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute top-4 right-4 z-10 text-[10px] font-semibold text-[var(--background)] bg-[var(--gold)] px-2 py-0.5 rounded-full"
+          >
+            Click to view
+          </motion.span>
+          <ProjectCard project={project} delay={delay} />
+        </div>
+
+        <div
+          className="absolute inset-0 rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 grid"
+          style={{
+            backfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+            gridTemplateColumns: images.length > 1 ? '1fr 1fr' : '1fr',
+          }}
+        >
+          {images.map((src) => (
+            <img
+              key={src}
+              src={`${import.meta.env.BASE_URL}${src}`}
+              alt={`${project.title} — photo`}
+              className={`w-full h-full ${fitClass}`}
+              loading="lazy"
+            />
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
 function ProjectRow({ project, delay }) {
   const images = project.sideImages ?? []
 
@@ -53,6 +105,15 @@ function ProjectRow({ project, delay }) {
       View Prototype →
     </Button>
   )
+
+  if (project.flipReveal && images.length > 0) {
+    return (
+      <div className="space-y-4">
+        <FlippableProjectCard project={project} delay={delay} />
+        {linkButton && <div className="flex justify-center">{linkButton}</div>}
+      </div>
+    )
+  }
 
   if (images.length === 0) {
     return (
