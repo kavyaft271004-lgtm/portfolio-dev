@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { motion } from 'motion/react'
 import { projects, empiricalProjects, karmaYogaProjects, competitionsProjects } from '../../data/projects'
 import Container from '../ui/Container'
@@ -39,53 +38,55 @@ function ProjectCard({ project, delay }) {
   )
 }
 
-function FlippableProjectCard({ project, delay }) {
-  const [flipped, setFlipped] = useState(false)
+const POLAROID_LAYOUTS = [
+  [{ rotate: -8, x: 0, y: 0 }],
+  [
+    { rotate: -10, x: -8, y: 6 },
+    { rotate: 9, x: 20, y: -4 },
+  ],
+]
+
+function Polaroid({ src, alt, rotate, x, y, delay }) {
+  return (
+    <motion.div
+      className="absolute w-24 sm:w-32 bg-white p-1.5 pb-4 rounded-sm shadow-2xl cursor-grab active:cursor-grabbing"
+      style={{ top: y, right: x }}
+      initial={{ opacity: 0, rotate: rotate * 2.5, scale: 0.7 }}
+      whileInView={{ opacity: 1, rotate, scale: 1 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, ease: 'easeOut', delay }}
+      whileHover={{ rotate: 0, scale: 1.1, zIndex: 30 }}
+      whileTap={{ scale: 1.05 }}
+      drag
+      dragElastic={0.5}
+      dragConstraints={{ left: -50, right: 50, top: -40, bottom: 40 }}
+      dragSnapToOrigin
+    >
+      <img src={src} alt={alt} className="w-full aspect-square object-cover" loading="lazy" />
+    </motion.div>
+  )
+}
+
+function PolaroidProjectCard({ project, delay }) {
   const images = project.sideImages ?? []
-  const fitClass = project.sideFit === 'cover' ? 'object-cover' : 'object-contain bg-white'
+  const layout = POLAROID_LAYOUTS[images.length - 1] ?? POLAROID_LAYOUTS[0]
 
   return (
-    <div
-      className="relative cursor-pointer select-none"
-      style={{ perspective: 1200 }}
-      onClick={() => setFlipped((f) => !f)}
-    >
-      <motion.div
-        className="relative w-full"
-        style={{ transformStyle: 'preserve-3d' }}
-        animate={{ rotateY: flipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: 'easeInOut' }}
-      >
-        <div className="relative" style={{ backfaceVisibility: 'hidden' }}>
-          <motion.span
-            animate={{ opacity: [1, 0.35, 1] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-4 right-4 z-10 text-[10px] font-semibold text-[var(--background)] bg-[var(--gold)] px-2 py-0.5 rounded-full"
-          >
-            Click to view
-          </motion.span>
-          <ProjectCard project={project} delay={delay} />
-        </div>
-
-        <div
-          className="absolute inset-0 rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 grid"
-          style={{
-            backfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)',
-            gridTemplateColumns: images.length > 1 ? '1fr 1fr' : '1fr',
-          }}
-        >
-          {images.map((src) => (
-            <img
-              key={src}
-              src={`${import.meta.env.BASE_URL}${src}`}
-              alt={`${project.title} — photo`}
-              className={`w-full h-full ${fitClass}`}
-              loading="lazy"
-            />
-          ))}
-        </div>
-      </motion.div>
+    <div className="relative">
+      <ProjectCard project={project} delay={delay} />
+      <div className="absolute -top-5 -right-3 sm:-top-7 sm:-right-6" style={{ zIndex: 10 }}>
+        {images.map((src, i) => (
+          <Polaroid
+            key={src}
+            src={`${import.meta.env.BASE_URL}${src}`}
+            alt={`${project.title} — photo`}
+            rotate={layout[i]?.rotate ?? 0}
+            x={layout[i]?.x ?? 0}
+            y={layout[i]?.y ?? 0}
+            delay={delay + i * 0.12}
+          />
+        ))}
+      </div>
     </div>
   )
 }
@@ -109,7 +110,7 @@ function ProjectRow({ project, delay }) {
   if (project.flipReveal && images.length > 0) {
     return (
       <div className="space-y-4">
-        <FlippableProjectCard project={project} delay={delay} />
+        <PolaroidProjectCard project={project} delay={delay} />
         {linkButton && <div className="flex justify-center">{linkButton}</div>}
       </div>
     )
