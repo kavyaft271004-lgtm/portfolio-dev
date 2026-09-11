@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
-import { AnimatePresence, motion } from 'motion/react'
+import { motion } from 'motion/react'
 import { projects, empiricalProjects, karmaYogaProjects, competitionsProjects } from '../../data/projects'
 import Container from '../ui/Container'
 import SectionHeading from '../ui/SectionHeading'
@@ -40,78 +38,6 @@ function ProjectCard({ project, delay }) {
   )
 }
 
-function Lightbox({ title, images, onClose }) {
-  useEffect(() => {
-    const onKeyDown = (e) => e.key === 'Escape' && onClose()
-    document.addEventListener('keydown', onKeyDown)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
-
-  return createPortal(
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.25 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm p-6"
-        onClick={onClose}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.92 }}
-          transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="relative max-w-4xl w-full"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            className="absolute -top-10 right-0 sm:-right-2 text-[var(--text)] text-2xl leading-none hover:text-[var(--gold)] transition-colors"
-          >
-            ✕
-          </button>
-          <div className={`grid gap-3 ${images.length > 1 ? 'sm:grid-cols-2' : 'grid-cols-1'}`}>
-            {images.map((src) => (
-              <img
-                key={src}
-                src={src}
-                alt={title}
-                className="w-full max-h-[75vh] object-contain rounded-[var(--radius)] border border-[var(--gold)]/20 bg-black"
-              />
-            ))}
-          </div>
-          <p className="mt-3 text-center text-sm text-[var(--muted)]">{title}</p>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>,
-    document.body,
-  )
-}
-
-function LightboxProjectCard({ project, delay }) {
-  const [open, setOpen] = useState(false)
-  const images = (project.sideImages ?? []).map((src) => `${import.meta.env.BASE_URL}${src}`)
-
-  return (
-    <div className="relative">
-      <button
-        onClick={() => setOpen(true)}
-        className="absolute top-4 right-4 z-10 flex items-center gap-1.5 text-xs font-semibold text-[var(--background)] bg-[var(--gold)] px-3 py-1.5 rounded-full shadow-lg hover:scale-105 transition-transform"
-      >
-        📷 View Photos
-      </button>
-      <ProjectCard project={project} delay={delay} />
-      {open && <Lightbox title={project.title} images={images} onClose={() => setOpen(false)} />}
-    </div>
-  )
-}
-
 function ProjectRow({ project, delay }) {
   const images = project.sideImages ?? []
 
@@ -128,15 +54,6 @@ function ProjectRow({ project, delay }) {
     </Button>
   )
 
-  if (project.flipReveal && images.length > 0) {
-    return (
-      <div className="space-y-4">
-        <LightboxProjectCard project={project} delay={delay} />
-        {linkButton && <div className="flex justify-center">{linkButton}</div>}
-      </div>
-    )
-  }
-
   if (images.length === 0) {
     return (
       <div className="space-y-4">
@@ -148,7 +65,7 @@ function ProjectRow({ project, delay }) {
 
   const isCover = project.sideFit === 'cover'
   const fitClass = isCover ? 'object-cover' : 'object-contain bg-white'
-  const heightClass = isCover ? 'md:h-[260px]' : 'md:h-[420px]'
+  const heightClass = isCover ? 'md:h-[320px]' : 'md:h-[420px]'
 
   return (
     <div className="grid md:grid-cols-2 gap-6 items-start">
@@ -159,7 +76,7 @@ function ProjectRow({ project, delay }) {
           whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: delay + 0.1 }}
-          className={`rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 mx-auto w-full max-w-sm ${heightClass} ${
+          className={`rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 w-full ${heightClass} ${
             images.length > 1 ? 'grid grid-cols-2 gap-1.5' : ''
           }`}
         >
