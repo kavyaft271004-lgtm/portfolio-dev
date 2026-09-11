@@ -101,7 +101,6 @@ export const competitionsProjects = [
     ],
     tools: ['Case Cracking', 'Verbal Strategy', 'Live Problem-Solving'],
     sideImages: ['images/competitions/crossfire.jpg'],
-    sideFit: 'cover',
   },
   {
     title: 'Shark Tank — Soft Touch (Product Concept)',
