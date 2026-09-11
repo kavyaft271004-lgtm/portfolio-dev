@@ -7,6 +7,8 @@ const links = [
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Experiential Learning', href: '#experiential-learning' },
+  { label: 'Competitions', href: '#competitions' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -35,7 +37,7 @@ function Navbar() {
         <a href="#top" className="font-[var(--font-heading)] text-[var(--gold)] text-lg">
           Kavya Sivakumar
         </a>
-        <nav className="hidden sm:flex gap-8 text-sm text-[var(--muted)]">
+        <nav className="hidden lg:flex gap-5 text-sm text-[var(--muted)] whitespace-nowrap">
           {links.map((link) => (
             <a key={link.href} href={link.href} className="hover:text-[var(--gold-light)] transition-colors">
               {link.label}

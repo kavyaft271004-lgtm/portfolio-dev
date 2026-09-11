@@ -200,7 +200,7 @@ function Projects() {
           </div>
         </div>
 
-        <div className="mt-20">
+        <div id="experiential-learning" className="mt-20 scroll-mt-24">
           <SectionHeading eyebrow="Leadership Experiential Action Program" title="Karma Yoga Project" />
           <div className="mt-12 space-y-6">
             {karmaYogaProjects.map((project, i) => (
@@ -209,7 +209,7 @@ function Projects() {
           </div>
         </div>
 
-        <div className="mt-20">
+        <div id="competitions" className="mt-20 scroll-mt-24">
           <SectionHeading eyebrow="Beyond the Classroom" title="Competitions at GLIM" />
           <div className="mt-12 space-y-6">
             {competitionsProjects.map((project, i) => (
