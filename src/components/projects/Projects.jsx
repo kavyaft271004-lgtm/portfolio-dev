@@ -63,7 +63,9 @@ function ProjectRow({ project, delay }) {
     )
   }
 
-  const fitClass = project.sideFit === 'cover' ? 'object-cover' : 'object-contain bg-white'
+  const isCover = project.sideFit === 'cover'
+  const fitClass = isCover ? 'object-cover' : 'object-contain bg-white'
+  const heightClass = isCover ? 'md:h-[260px]' : 'md:h-[420px]'
 
   return (
     <div className="grid md:grid-cols-2 gap-6 items-start">
@@ -74,7 +76,7 @@ function ProjectRow({ project, delay }) {
           whileInView={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, ease: 'easeOut', delay: delay + 0.1 }}
-          className={`rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 md:h-[420px] ${
+          className={`rounded-[var(--radius)] overflow-hidden border border-[var(--gold)]/20 mx-auto w-full max-w-sm ${heightClass} ${
             images.length > 1 ? 'grid grid-cols-2 gap-1.5' : ''
           }`}
         >
