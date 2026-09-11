@@ -21,6 +21,7 @@ export const profile = {
       title: 'Badminton',
       detail:
         'Active player since school; continues as a recreational interest. Plays casually on weekends; values it as a regular source of physical activity.',
+      images: ['images/badminton/collage.jpg'],
     },
     {
       title: 'Community & Education',

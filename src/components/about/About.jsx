@@ -46,7 +46,11 @@ function InterestCard({ interest, index }) {
         {hasImages && (
           <div
             className={`absolute inset-0 grid gap-1.5 ${
-              interest.imageLayout === 'stack' ? 'grid-rows-2' : 'grid-cols-2'
+              interest.images.length === 1
+                ? 'grid-cols-1'
+                : interest.imageLayout === 'stack'
+                  ? 'grid-rows-2'
+                  : 'grid-cols-2'
             }`}
             style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
           >
